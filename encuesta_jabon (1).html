@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta de Jabón — RainSoft / Universal Solar Products</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f5f3ee;color:#1a1a1a;padding:16px}
+.wrap{max-width:960px;margin:0 auto}
+
+/* HEADER */
+.header{display:flex;align-items:center;background:#1a1a1a;border-radius:8px;margin-bottom:14px;overflow:hidden}
+.header-logo{padding:16px 20px;min-width:110px;text-align:center}
+.header-logo .title{font-size:16px;font-weight:700;color:#fff;line-height:1.2}
+.header-fields{flex:1;background:#f5f3ee;padding:12px 16px;display:grid;grid-template-columns:1.6fr 0.9fr 1.6fr 2fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:3px}
+.field label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#888}
+.field input{background:transparent;border:none;border-bottom:1.5px solid #d0cdc5;padding:4px 0;font-size:13px;font-family:Arial,sans-serif;outline:none;color:#1a1a1a}
+.field input:focus{border-color:#1a1a1a}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+
+/* CARDS */
+.card{background:#fff;border:1px solid #d0cdc5;border-radius:6px;overflow:hidden}
+.card-header{background:#1a1a1a;padding:7px 10px}
+.card-header span{font-size:10px;font-weight:700;color:#fff;letter-spacing:0.8px;text-transform:uppercase}
+.card-body{padding:8px 10px}
+.brands{font-size:10px;color:#555;line-height:1.5;margin-bottom:8px}
+.brand-pill{display:inline-block;background:#f5f3ee;border:1px solid #d0cdc5;border-radius:20px;padding:1px 7px;margin:2px 2px 2px 0;cursor:pointer;transition:all .15s;user-select:none;font-size:10px;color:#444}
+.brand-pill:hover{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.brand-pill.sel{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.write-lines{margin:6px 0}
+.write-line{border:none;border-bottom:1px solid #d0cdc5;width:100%;margin-bottom:8px;height:22px;font-size:12px;font-family:Arial,sans-serif;background:transparent;outline:none;color:#1a1a1a;padding:0 2px}
+.write-line:focus{border-bottom-color:#1a1a1a}
+.gasto-row{display:flex;align-items:center;gap:6px;margin-top:4px;padding-top:6px;border-top:1px dashed #e5e5e0}
+.gasto-row label{font-size:10px;font-weight:700;color:#888;white-space:nowrap}
+.gasto-input{border:none;border-bottom:1.5px solid #d0cdc5;background:transparent;font-size:13px;font-family:Arial,sans-serif;padding:2px 0;width:80px;outline:none;color:#1a1a1a;text-align:right}
+.gasto-input:focus{border-bottom-color:#1a1a1a}
+.gasto-suffix{font-size:10px;color:#aaa}
+
+/* PROFILE CARD */
+.profile-card{background:#fff;border:1px solid #d0cdc5;border-radius:6px;overflow:hidden}
+.profile-body{padding:10px}
+.profile-body p{font-size:11px;line-height:1.7;color:#1a1a1a}
+.profile-body .question{margin-top:8px;font-size:11px;font-weight:700;color:#1a1a1a}
+.profile-options{display:flex;gap:8px;margin-top:6px}
+.opt-btn{flex:1;padding:6px 4px;border:1.5px solid #d0cdc5;border-radius:4px;background:transparent;font-size:10px;font-weight:700;cursor:pointer;color:#888;transition:all .15s;font-family:Arial,sans-serif;text-align:center}
+.opt-btn:hover{border-color:#1a1a1a;color:#1a1a1a}
+.opt-btn.sel{background:#1a1a1a;border-color:#1a1a1a;color:#fff}
+.profile-q2{margin-top:10px}
+.profile-q2 label{font-size:11px;color:#555;line-height:1.5;display:block;margin-bottom:6px}
+.time-options{display:flex;gap:8px;flex-wrap:wrap}
+.time-btn{padding:5px 10px;border:1.5px solid #d0cdc5;border-radius:4px;background:transparent;font-size:10px;font-weight:700;cursor:pointer;color:#888;transition:all .15s;font-family:Arial,sans-serif}
+.time-btn:hover{border-color:#1a1a1a;color:#1a1a1a}
+.time-btn.sel{background:#1a1a1a;border-color:#1a1a1a;color:#fff}
+
+/* TOTALS */
+.totals{background:#1a1a1a;border-radius:8px;padding:16px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tot-block{display:flex;flex-direction:column;gap:4px}
+.tot-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888}
+.tot-value{font-size:22px;font-weight:300;color:#fff;font-family:Arial,sans-serif}
+
+/* ENCABEZADO STAT */
+.stat-banner{background:#fff8e6;border:1px solid #f0c040;border-radius:6px;padding:10px 14px;margin-bottom:10px;text-align:center;font-size:11px;color:#7a5c00;line-height:1.6}
+.stat-banner strong{font-weight:700}
+
+@media(max-width:650px){
+  .grid{grid-template-columns:1fr}
+  .header-fields{grid-template-columns:1fr 1fr}
+  .totals{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-logo">
+      <div class="title">ENCUESTA<br>DE JABÓN</div>
+      <div style="font-size:8px;color:#aaa;margin-top:4px;letter-spacing:1px">RAINSOFT · USP</div>
+    </div>
+    <div class="header-fields">
+      <div class="field"><label>Dueño / Alquila</label><input type="text"></div>
+      <div class="field"><label># en Familia</label><input type="number" min="1"></div>
+      <div class="field"><label>Gasto mensual en supermercado</label><input type="text" placeholder="$"></div>
+      <div class="field"><label>Nombre del cliente</label><input type="text"></div>
+    </div>
+  </div>
+
+  <!-- STAT BANNER -->
+  <div class="stat-banner">
+    <strong>Estadísticas del Depto. de Asuntos del Consumidor</strong><br>
+    "De cada $1.00 gastado en supermercados, entre <strong>$0.21 y $0.30</strong> va a jabones, detergentes y productos de limpieza."<br>
+    <strong>¿Cuánto gasta USTED al mes?</strong>
+  </div>
+
+  <!-- GRID DE CATEGORÍAS -->
+  <div class="grid" id="cats"></div>
+
+  <!-- TOTALES -->
+  <div class="totals">
+    <div class="tot-block"><div class="tot-label">Total de productos</div><div class="tot-value" id="v-items">0</div></div>
+    <div class="tot-block"><div class="tot-label">Total / mes</div><div class="tot-value">$<span id="v-mes">0.00</span></div></div>
+    <div class="tot-block"><div class="tot-label">Total / año</div><div class="tot-value">$<span id="v-ano">0.00</span></div></div>
+    <div class="tot-block"><div class="tot-label">Total 4 años</div><div class="tot-value">$<span id="v-4">0.00</span></div></div>
+  </div>
+
+</div>
+
+<script>
+const cats = [
+  {name:"Detergente de Ropa", brands:["Tide","Cheer","Bold","Sam's Choice","Arm & Hammer","Surf","Wisk","Purex","Ajax","Era","Gain","Marca Propia"], lines:2},
+  {name:"Ropa Delicada y Bebés", brands:["Woolite","Extra","Ivory Snow","Marca Propia"], lines:2},
+  {name:"Suavizador de Telas", brands:["Downey","Bounce","Cling Free","Snuggle","Calgon","Marca Propia"], lines:2},
+  {name:"Quitamanchas", brands:["Spray n' Wash","Shout","Clorox Pre-wash"], lines:2},
+  {name:"Blanqueador", brands:["Clorox","Ultra-Extra","Purex","Clorox 2","Biz"], lines:2},
+  {name:"Jabón de Baño", brands:["Zest","Ivory","Safeguard","Camay","Dial","Dove","Irish Spring","Neutrogena","Caress","Shield","Lever 2000","Coast"], lines:2},
+  {name:"Jabón de Fregar", brands:["Dawn","Suave","Joy","Ivory Liquid","Palmolive","Ultra Dove"], lines:2},
+  {name:"Lavavajillas Eléctrico", brands:["Cascade","Electra Sol","All","Quitamanchas","Palmolive","Sunrite","Marca Propia","Jet Dry"], lines:2},
+  {name:"Limpiador de Baño", brands:["Comet","Ajax","Soft Scrub","Bon Amie","Tilex","Lime Away","CLR","Lysol Basin","Scrubbing Bubbles","Clean Shower","Shower Shine","The Works","X-14"], lines:2},
+  {name:"Limpiador de Pisos", brands:["Mr. Clean","Lysol","Ajax Liquid","Mop & Glo","Pine Sol","Simple Green","Spic n' Span","Armstrong","Fabuloso"], lines:2},
+  {name:"Limpiador Multiusos", brands:["409","Fantastic","Now","Lysol Antibacterial","Clorox Clean Up","Fabuloso"], lines:2},
+  {name:"Limpiador de Cristales", brands:["Windex","Glass Plus","Windex Outdoor","Amoníaco"], lines:2},
+  {name:"Limpiador de Inodoros", brands:["Vanish","Ty-D-Bol","Lysol","Clorox","Duck","Enviro Bowl","Saniflush","Bowl Fresh","2000 Flushes","Cling"], lines:2},
+  {name:"Limpiador de Alfombras", brands:["Resolve","Spot Shot","Tuff Stuff","Marca Propia"], lines:2},
+  {name:"Shampoo", brands:[], lines:3, writeOnly:true},
+  {name:"Acondicionador y Enjuague", brands:[], lines:3, writeOnly:true},
+  {name:"Lociones y Aceites Corporales", brands:[], lines:3, writeOnly:true},
+  {name:"Jabón Líquido / Gel de Ducha / Baño de Espuma", brands:[], lines:3, writeOnly:true},
+];
+
+const gastos = {};
+const grid = document.getElementById('cats');
+
+cats.forEach((cat, ci) => {
+  gastos[ci] = 0;
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  // special: last item is profile card
+  const pillsHtml = cat.brands.map(b =>
+    `<span class="brand-pill" onclick="togglePill(this,${ci})">${b}</span>`
+  ).join('');
+
+  const linesHtml = Array.from({length: cat.lines}, (_,i) =>
+    `<input class="write-line" type="text" placeholder="">`
+  ).join('');
+
+  card.innerHTML = `
+    <div class="card-header"><span>${cat.name}</span></div>
+    <div class="card-body">
+      ${pillsHtml ? `<div class="brands">${pillsHtml}</div>` : ''}
+      <div class="write-lines">${linesHtml}</div>
+      <div class="gasto-row">
+        <label>Gasto $</label>
+        <input class="gasto-input" type="number" min="0" step="0.01" placeholder="0.00"
+          oninput="updateGasto(this,${ci})" onblur="fmt(this)">
+        <span class="gasto-suffix">/ mes</span>
+      </div>
+    </div>`;
+  grid.appendChild(card);
+});
+
+// Profile card
+const profileCard = document.createElement('div');
+profileCard.className = 'profile-card';
+profileCard.innerHTML = `
+  <div class="card-header"><span>Perfil del Comprador</span></div>
+  <div class="profile-body">
+    <p><strong>¿Cómo compra usted normalmente?</strong></p>
+    <div class="profile-options" style="margin-top:8px">
+      <button class="opt-btn" onclick="selOpt(this,'tipo')">ALTO<br><span style="font-weight:400;font-size:9px">Solo marcas</span></button>
+      <button class="opt-btn" onclick="selOpt(this,'tipo')">MEDIO<br><span style="font-weight:400;font-size:9px">Marcas + cupones</span></button>
+      <button class="opt-btn" onclick="selOpt(this,'tipo')">BAJO<br><span style="font-weight:400;font-size:9px">Ofertas y cupones</span></button>
+    </div>
+    <div class="profile-q2">
+      <label>¿Por cuánto tiempo planea seguir comprando estos productos?</label>
+      <div class="time-options">
+        <button class="time-btn" onclick="selTime(this)">Unas semanas</button>
+        <button class="time-btn" onclick="selTime(this)">Varios años</button>
+        <button class="time-btn" onclick="selTime(this)">Para siempre</button>
+      </div>
+    </div>
+  </div>`;
+grid.appendChild(profileCard);
+
+function togglePill(el, ci) {
+  el.classList.toggle('sel');
+  recalc();
+}
+
+function selOpt(btn, group) {
+  btn.closest('.profile-options').querySelectorAll('.opt-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function selTime(btn) {
+  btn.closest('.time-options').querySelectorAll('.time-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function updateGasto(inp, ci) {
+  gastos[ci] = parseFloat(inp.value) || 0;
+  recalc();
+}
+
+function fmt(inp) {
+  if (inp.value) inp.value = parseFloat(inp.value).toFixed(2);
+}
+
+function recalc() {
+  const pills = document.querySelectorAll('.brand-pill.sel').length;
+  const total = Object.values(gastos).reduce((a, b) => a + b, 0);
+  document.getElementById('v-items').textContent = pills;
+  document.getElementById('v-mes').textContent = total.toFixed(2);
+  document.getElementById('v-ano').textContent = (total * 12).toFixed(2);
+  document.getElementById('v-4').textContent = (total * 12 * 4).toFixed(2);
+}
+</script>
+</body>
+</html>
